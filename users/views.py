@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
@@ -13,3 +14,10 @@ def register(request):
     else:
         form = UserCreationForm()
     return render(request, 'users/register.html', {'form': form})
+
+@login_required
+def dashboard(request):
+    context = {
+        'user': request.user,
+    }
+    return render(request, 'users/dashboard.html', context)
