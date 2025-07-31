@@ -11,6 +11,9 @@
   </head>
   <body class="container py-5">
     <h2>You've been logged out.</h2>
-    <a href="{% url 'login' %}" class="btn btn-secondary">Log in again</a>
+    <form method="POST" action="{% url 'logout' %}">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-danger">Log out</button>
+    </form>
   </body>
 </html>
