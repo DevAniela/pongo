@@ -21,3 +21,6 @@ def dashboard(request):
         'user': request.user,
     }
     return render(request, 'users/dashboard.html', context)
+
+def home(request):
+    return render(request, 'users/home.html')
