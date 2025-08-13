@@ -14,3 +14,8 @@ def mood_entry(request):
     else:
         form = MoodEntryForm()
     return render(request, 'moods/mood_entry.html', {'form': form})
+
+@login_required
+def mood_history(request):
+    moods = request.user.moodentry_set.all().order_by('-date_created')
+    return render(request, 'moods/mood_history.html', { 'moods': moods })

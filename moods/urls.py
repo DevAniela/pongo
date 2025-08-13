@@ -1,6 +1,7 @@
 from django.urls import path
-from .views import mood_entry
+from . import views
 
 urlpatterns = [
-    path('entry/', mood_entry, name='mood_entry'),
+    path('entry/', views.mood_entry, name='mood_entry'),
+    path('history/', views.mood_history, name='mood_history'),
 ]
