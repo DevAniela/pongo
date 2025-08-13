@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'users',
     'moods',
     'journal',
+    'chat',
 ]
 
 MIDDLEWARE = [
