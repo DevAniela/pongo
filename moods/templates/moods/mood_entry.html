@@ -15,10 +15,10 @@
     <form method="POST">
       {% csrf_token %} {{ form.as_p }}
 
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <button type="submit" class="btn btn-primary m-2">Submit</button>
     </form>
 
-    <a href="{% url 'dashboard' %}" class="btn btn-link mt-3"
+    <a href="{% url 'dashboard' %}" class="btn btn-outline-secondary m-2"
       >Back to Dashboard</a
     >
   </body>

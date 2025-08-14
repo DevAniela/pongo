@@ -10,12 +10,12 @@ def mood_entry(request):
             mood_entry = form.save(commit=False)
             mood_entry.user = request.user
             mood_entry.save()
-            return redirect('dashboard')
+            return redirect('mood_history')
     else:
         form = MoodEntryForm()
     return render(request, 'moods/mood_entry.html', {'form': form})
 
 @login_required
 def mood_history(request):
-    moods = request.user.moodentry_set.all().order_by('-date_created')
+    moods = request.user.moodentry_set.all().order_by('-timestamp')
     return render(request, 'moods/mood_history.html', { 'moods': moods })
