@@ -11,9 +11,18 @@
   </head>
   <body class="container py-5">
     <h2>Log your mood for today</h2>
+    <p>Give each base emotion a number between 1 and 10.</p>
 
     <form method="POST">
-      {% csrf_token %} {{ form.as_p }}
+      {% csrf_token %} {% for field in form %} {% if "_tag" not in field.name %}
+      <p>{{ field.label_tag }} {{ field }}</p>
+      {% endif %} {% endfor %}
+
+      <p>Be more specific about the nuance for each base emotion.</p>
+
+      {% for field in form %} {% if "_tag" in field.name %}
+      <p>{{ field.label.tag }} {{ field }}</p>
+      {% endif %} {% endfor %}
 
       <button type="submit" class="btn btn-primary m-2">Submit</button>
     </form>
