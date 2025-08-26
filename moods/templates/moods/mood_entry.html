@@ -21,7 +21,7 @@
       <p>Be more specific about the nuance for each base emotion.</p>
 
       {% for field in form %} {% if "_tag" in field.name %}
-      <p>{{ field.label.tag }} {{ field }}</p>
+      <p>{{ field.label_tag }} {{ field }}</p>
       {% endif %} {% endfor %}
 
       <button type="submit" class="btn btn-primary m-2">Submit</button>

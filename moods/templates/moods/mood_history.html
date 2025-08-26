@@ -1,3 +1,5 @@
+{% load mood_extras %}
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -27,12 +29,12 @@
         {% for mood in moods %}
         <tr>
           <td>{{ mood.timestamp|date:"d-m-Y H:i" }}</td>
-          <td>{{ mood.happy }} ({{ mood.happy_tag }})</td>
-          <td>{{ mood.angry }} ({{ mood.angry_tag }})</td>
-          <td>{{ mood.sad }} ({{ mood.sad_tag }})</td>
-          <td>{{ mood.fear }} ({{ mood.fear_tag }})</td>
-          <td>{{ mood.disgust }} ({{ mood.disgust_tag }})</td>
-          <td>{{ mood.surprise }} ({{ mood.surprise_tag }})</td>
+          <td>{{ mood|formatted_emotion:"happy" }}</td>
+          <td>{{ mood|formatted_emotion:"angry" }}</td>
+          <td>{{ mood|formatted_emotion:"sad" }}</td>
+          <td>{{ mood|formatted_emotion:"fear" }}</td>
+          <td>{{ mood|formatted_emotion:"disgust" }}</td>
+          <td>{{ mood|formatted_emotion:"surprise" }}</td>
         </tr>
         {% empty %}
         <tr>

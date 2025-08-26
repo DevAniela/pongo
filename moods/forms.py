@@ -10,18 +10,25 @@ EMOTION_TAG_OPTIONS = {
     'surprise': ['shocked', 'curious', 'amazed'],
 }
 
-class MoodEntryForm(forms.ModelForm):    
+class MoodEntryForm(forms.ModelForm):
     class Meta:
         model = MoodEntry
-        fields = ['happy', 'angry', 'sad', 'fear', 'disgust', 'surprise']
+        fields = ['happy', 'angry', 'sad', 'fear', 'disgust', 'surprise',
+                  'happy_tag', 'angry_tag', 'sad_tag', 'fear_tag', 'disgust_tag', 'surprise_tag']
         
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         
-        for emotion in ['happy', 'angry', 'sad', 'fear', 'disgust', 'surprise']:
-            self.fields[emotion].initial = 4
+        for emotion in EMOTION_TAG_OPTIONS.keys():
+            self.fields[emotion].required = False
+            self.fields[emotion].choices = [('', '---')] + [(i, i) for i in range(1, 11)]
+            self.fields[emotion].initial = ''
         
         for emotion, tags in EMOTION_TAG_OPTIONS.items():
             field_name = f"{emotion}_tag"
-            choices = [('neutral', 'neutral')] + [(tag, tag) for tag in tags]
-            self.fields[field_name] = forms.ChoiceField(choices=choices, required=False)
+            choices = [('', '---')] + [(tag, tag) for tag in tags]
+            self.fields[field_name] = forms.ChoiceField(
+                choices=choices,
+                required=False,
+                widget=forms.Select(attrs={'class': 'form-select'})
+            )
