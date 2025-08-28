@@ -11,22 +11,31 @@
   </head>
   <body class="container py-5">
     <h2>Log your mood for today</h2>
-    <p>Give each base emotion a number between 1 and 10.</p>
+    <p>
+      Give each base emotion a number between 1 and 10, or pick a nuance tag if
+      that feels more accurate.
+    </p>
 
-    <form method="POST">
-      {% csrf_token %} {% for field in form %} {% if "_tag" not in field.name %}
-      <p>{{ field.label_tag }} {{ field }}</p>
-      {% endif %} {% endfor %}
+    <form method="POST" class="mt-4">
+      {% csrf_token %}
+      <div class="row g-4">
+        {% for emotion_field, tag_field in form.grouped_fields %}
+        <div class="col-md-6">
+          <div class="card shadow-sm p-3 h-100">
+            <h5 class="mb-3">{{ emotion_field.label }}</h5>
+            <div class="row g-2 align-items-center">
+              <div class="col-4">{{ emotion_field }}</div>
+              <div class="col-8">{{ tag_field }}</div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
 
-      <p>Be more specific about the nuance for each base emotion.</p>
-
-      {% for field in form %} {% if "_tag" in field.name %}
-      <p>{{ field.label_tag }} {{ field }}</p>
-      {% endif %} {% endfor %}
-
-      <button type="submit" class="btn btn-primary m-2">Submit</button>
+      <div class="mt-4">
+        <button type="submit" class="btn btn-primary m-2">Submit</button>
+      </div>
     </form>
-
     <a href="{% url 'dashboard' %}" class="btn btn-outline-secondary m-2"
       >Back to Dashboard</a
     >

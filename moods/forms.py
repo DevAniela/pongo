@@ -21,8 +21,7 @@ class MoodEntryForm(forms.ModelForm):
         
         for emotion in EMOTION_TAG_OPTIONS.keys():
             self.fields[emotion].required = False
-            self.fields[emotion].choices = [('', '---')] + [(i, i) for i in range(1, 11)]
-            self.fields[emotion].initial = ''
+            self.fields[emotion].widget.attrs.update({'class': 'form-select'})
         
         for emotion, tags in EMOTION_TAG_OPTIONS.items():
             field_name = f"{emotion}_tag"
@@ -30,5 +29,11 @@ class MoodEntryForm(forms.ModelForm):
             self.fields[field_name] = forms.ChoiceField(
                 choices=choices,
                 required=False,
-                widget=forms.Select(attrs={'class': 'form-select'})
+                widget=forms.Select(attrs={'class': 'form-select form-select-sm'})
             )
+    
+    def grouped_fields(self):
+        groups = []
+        for emotion in EMOTION_TAG_OPTIONS.keys():
+            groups.append((self[emotion], self[f"{emotion}_tag"]))
+        return groups
